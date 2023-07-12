@@ -90,6 +90,13 @@ if [ -d /etc/sftp.d ]; then
     unset f
 fi
 
+# Set port
+if [ -z "$PORT" ]; then
+	PORT=2222
+fi
+sed -i -e "s/%PORT%/$PORT/g" /etc/ssh/sshd_config
+
+
 if $startSshd; then
     log "Executing rsyslogd"
     exec /usr/sbin/rsyslogd -n &
